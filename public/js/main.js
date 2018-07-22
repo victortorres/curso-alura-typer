@@ -42,27 +42,33 @@ function inicializarCronometro(){
             tempoDigitacao--;
             $("#tempo-digitacao").text(tempoDigitacao);
             if(tempoDigitacao < 1){
-                //esse comando se passar o valor do nome do atributo html
-                //ele pega o valor do atributo, e se passar dois parametros
-                //ele altera o valor do atributo
-                campoTextArea.attr("disabled", true);
-                
-                //1-o comando abaixo altera o atributo de estilo do CSS, mas uma boa
-                //pratica eh criar uma classe CSS e adicionar essa classe
-                //campoTextArea.css("background-color", "lightgray");
-                //2-agora caso seja adicionado e removido uma class posteriormente
-                //ao inves de usar o addClass e o removeClass, usar o toggleClass
-                campoTextArea.toggleClass("campo-desativado");
+                finalizarJogo();
 
                 //quando quiser q um interval pare de funcionar
                 //devo chamar a funcao abaixo passando o ID
                 //do interval que desejo parar
                 clearInterval(intervalID);
+                
             }
         },1000);
     });    
 }
 
+function finalizarJogo(){
+    //esse comando se passar o valor do nome do atributo html
+    //ele pega o valor do atributo, e se passar dois parametros
+    //ele altera o valor do atributo
+    campoTextArea.attr("disabled", true);
+    
+    //1-o comando abaixo altera o atributo de estilo do CSS, mas uma boa
+    //pratica eh criar uma classe CSS e adicionar essa classe
+    //campoTextArea.css("background-color", "lightgray");
+    //2-agora caso seja adicionado e removido uma class posteriormente
+    //ao inves de usar o addClass e o removeClass, usar o toggleClass
+    campoTextArea.toggleClass("campo-desativado");
+
+    inserirPlacar();
+}
 
 function validacaoDigitacao(){
     var texto = $(".frase").text();
@@ -95,3 +101,42 @@ function reiniciarJogo(){
     $("#contador-caracteres").text("0");
     inicializarCronometro();
 };
+
+function inserirPlacar(){
+    var tabelaPlacar = $(".placar").find("tbody");
+    var nome = "Victor";
+    var palavrasDigitadas = $("#contador-palavras").text();
+
+    var linhaPlacar = novaLinhaPlacar(nome, palavrasDigitadas);
+    linhaPlacar.find(".btn-remover-placar").click(removerPlacar);
+
+    //este comando adiciona no final do html ja existente
+    //tabelaPlacar.append(linhaPlacar);
+    //este comando adiciona no inicio do html ja existente
+    tabelaPlacar.prepend(linhaPlacar);
+}
+
+function novaLinhaPlacar(nome, palavrasDigitadas){
+    var linha = $("<tr>");
+    var colunaNome = $("<td>").text(nome);
+    var colunaPalavras = $("<td>").text(palavrasDigitadas);
+    var colunaRemover = $("<td>");
+    var link = $("<a>").addClass("btn-remover-placar").attr("href", "#");
+    var icone = $("<i>").addClass("material-icons").addClass("small").text("delete");
+
+    colunaRemover
+        .append(link
+                .append(icone));
+
+    linha
+        .append(colunaNome)
+        .append(colunaPalavras)
+        .append(colunaRemover);
+
+    return linha;
+}
+
+function removerPlacar(){
+    event.preventDefault();
+    $(this).parent().parent().remove();
+}
