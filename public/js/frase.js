@@ -1,4 +1,5 @@
 $("#botao-frases").click(selecionarFraseAleatoria);
+$("#botao-frases-por-id").click(buscarFrase);
 
 function selecionarFraseAleatoria(){
     //poderia usar o .show() e depois o .hide() mas como sempre
@@ -30,4 +31,31 @@ function trocarFrase(data){
     $(".frase").text(data[numeroAleatorio].texto);
     atualizarTamanhoFrase();
     atualizarTempo(data[numeroAleatorio].tempo);
+}
+
+function buscarFrase(){
+    var idFrase = $("#frase-id").val();
+    var dadosGet = {id: idFrase};
+
+    var mensagemErro = $("#erro");
+    $("#spinner").toggle();
+    
+    $.get( "http://localhost:3000/frases",
+            dadosGet,
+            trocarFrasePorId)
+    .fail(function(){
+        mensagemErro.show();
+        setTimeout(function(){
+            mensagemErro.toggle();
+        }, 1500);
+    })
+    .always(function(){
+        $("#spinner").toggle();
+    });
+}
+
+function trocarFrasePorId(data){
+    $(".frase").text(data.texto);
+    atualizarTamanhoFrase();
+    atualizarTempo(data.tempo);
 }
