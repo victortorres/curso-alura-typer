@@ -20,6 +20,11 @@ function atualizarTamanhoFrase(){
     tamanhoFrase.text(totalPalavras);
 }
 
+function atualizarTempo(tempo){
+    tempoInicial = tempo;
+    $("#tempo-digitacao").text(tempo);
+}
+
 function inicializarContadores(){
     campoTextArea.on("input", function(){
         var conteudo = campoTextArea.val();
@@ -29,14 +34,14 @@ function inicializarContadores(){
     });
 }
 
-function inicializarCronometro(){
-    var tempoDigitacao = $("#tempo-digitacao").text();
+function inicializarCronometro(){    
     //quando chamo um evento xxx.on() esse evento
     //sera acionado toda vez que for executado, mas
     //se chamar o evento xxx.one() independente de
     //quantas vezes ocorra o evento, ele soh sera
     //chamado 1x
     campoTextArea.one("focus", function(){
+        var tempoDigitacao = $("#tempo-digitacao").text();
         //1-todo o set interval retorna um ID
         var intervalID = setInterval(function(){
             tempoDigitacao--;
@@ -71,8 +76,8 @@ function finalizarJogo(){
 }
 
 function validacaoDigitacao(){
-    var texto = $(".frase").text();
     campoTextArea.on("input", function(){
+        var texto = $(".frase").text();
         var digitando = campoTextArea.val();
         var textoComparavel = texto.substr(0, digitando.length);
 

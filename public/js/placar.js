@@ -12,6 +12,17 @@ function inserirPlacar(){
     //tabelaPlacar.append(linhaPlacar);
     //este comando adiciona no inicio do html ja existente
     tabelaPlacar.prepend(linhaPlacar);
+
+    $(".placar").slideDown(500);
+    scrollPlacar();
+}
+
+function scrollPlacar(){
+    var posicaoPlacar = $(".placar").offset().top;
+
+    $("body").animate({
+        scrollTop: posicaoPlacar + "px"
+    }, 1000);
 }
 
 function novaLinhaPlacar(nome, palavrasDigitadas){
@@ -46,5 +57,10 @@ function removerPlacar(){
 }
 
 function mostrarPlacar(){
-    $(".placar").slideToggle(600);//abaixa a tela e sobre a tela com uma transicao
+    //se usar o stop antes de chamar uma funcao de animacao
+    //isso faz com que o jquery pare a execucao corrente
+    //e faca apenas a ultima, e isso eh util para quando eu
+    //aciono a animacao varias vezes, e caso nao use, o jquery
+    //vai tentar acionar todas as animacoes
+    $(".placar").stop().slideToggle(600);//abaixa a tela e sobre a tela com uma transicao
 }
