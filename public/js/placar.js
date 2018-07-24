@@ -1,4 +1,5 @@
 $("#botao-placar").click(mostrarPlacar);
+$("#botao-sincronizar-placar").click(sincronizarPlacar);
 
 function inserirPlacar(){
     var tabelaPlacar = $(".placar").find("tbody");
@@ -63,4 +64,34 @@ function mostrarPlacar(){
     //aciono a animacao varias vezes, e caso nao use, o jquery
     //vai tentar acionar todas as animacoes
     $(".placar").stop().slideToggle(600);//abaixa a tela e sobre a tela com uma transicao
+}
+
+function sincronizarPlacar(){
+    var dadosPlacar = [];
+    //o "tbody>tr" eh um seletor especial do css, e diz que
+    //estou selecionando os primeiros nivels de TR do TBODY
+    var linhasPlacar = $("tbody>tr");
+
+    linhasPlacar.each(function(){
+        //o "td:nth-child(1)" eh um seletor especial do css
+        //e diz que eu estou selecionando o primeiro TD em uma
+        //lista de TDs
+        var nome = $(this).find("td:nth-child(1)").text();
+        var qtdPalavras = $(this).find("td:nth-child(2)").text();
+
+        var score = {
+            usuario: nome,
+            pontos: qtdPalavras
+        };
+
+        dadosPlacar.push(score)
+    });
+    
+    var dadosJson = {
+        placar: dadosPlacar
+    };
+
+    $.post("http://localhost:3000/placar", dadosJson, function(){
+        console.log("processou requisicao POST");
+    });
 }
