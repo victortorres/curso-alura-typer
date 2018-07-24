@@ -95,3 +95,15 @@ function sincronizarPlacar(){
         console.log("processou requisicao POST");
     });
 }
+
+function buscarPlacar(){
+    $.get("http://localhost:3000/placar", function(data){
+
+        $(data).each(function(){
+            var linha = novaLinhaPlacar(this.usuario, this.pontos);
+            linha.find(".btn-remover-placar").click(removerPlacar);
+
+            $(".placar").find("tbody").append(linha);
+        });
+    });    
+}

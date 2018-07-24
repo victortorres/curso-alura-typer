@@ -10,6 +10,7 @@ $(function(){
     inicializarCronometro();
     validacaoDigitacao();
     $("#botao-reiniciar").click(reiniciarJogo);
+    buscarPlacar();
 });
 
 function atualizarTamanhoFrase(){
