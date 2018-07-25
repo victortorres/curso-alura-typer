@@ -11,6 +11,10 @@ $(function(){
     validacaoDigitacao();
     $("#botao-reiniciar").click(reiniciarJogo);
     buscarPlacar();
+    $('#usuarios').selectize({
+        create: true,
+        sortField: 'text'
+    });    
 });
 
 function atualizarTamanhoFrase(){

@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>Alura Typer</title>
     <link rel="stylesheet" href="css/libs/materialize.min.css">
-    <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/libs/google-fonts.css">
+    <link rel="stylesheet" href="css/libs/selectize.default.css">
+
+    <link rel="stylesheet" href="css/estilos.css">
+
 </head>
 <body>
     <!-- Seja bem vindo ao curso de jQuery :) -->
@@ -49,6 +52,11 @@
                 <i class="material-icons">repeat_one</i>
             </a>
             <input type="number" id="frase-id" min="0"/>
+            <div class="select-usuarios">
+                <select id="usuarios">
+                    <option value=""></option>
+                </select>
+            </div>
             <a id="botao-sincronizar-placar" class="btn-floating btn-large waves-effect waves-light yellow">
                 <i class="material-icons">swap_vert</i>
             </a>            
@@ -80,8 +88,10 @@
     </div>
 
     <script src="js/jquery.js"></script>
+    <script src="js/selectize.js"></script>
     <script src="js/placar.js"></script>
     <script src="js/frase.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/select-nome.js"></script>
 </body>
 </html>
