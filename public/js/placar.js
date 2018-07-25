@@ -93,6 +93,15 @@ function sincronizarPlacar(){
 
     $.post("http://localhost:3000/placar", dadosJson, function(){
         console.log("processou requisicao POST");
+        $('.tooltip').tooltipster("open");
+    })
+    .fail(function(){
+        $('.tooltip').tooltipster("open").tooltipster("content", "Falha ao Sincronizar");
+    })
+    .always(function(){
+        setTimeout(function(){
+            $('.tooltip').tooltipster("close");
+        }, 2000);
     });
 }
 
